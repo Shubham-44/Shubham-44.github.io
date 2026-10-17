@@ -16,21 +16,36 @@ document.querySelectorAll('.close,.close-bottom').forEach(button => button.addEv
 dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
 document.querySelector('#year').textContent = new Date().getFullYear();
 
-// Animate each content block once as it enters the viewport.
-// Content stays visible if JavaScript or IntersectionObserver is unavailable.
+// Prepare only off-screen blocks; no-JS and reduced-motion visits stay visible.
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 if ('IntersectionObserver' in window && !motionPreference.matches) {
- const revealObserver = new IntersectionObserver((entries) => {
+ const revealObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
    if (!entry.isIntersecting) return;
-   if (!motionPreference.matches) entry.target.classList.add('scroll-reveal');
+   entry.target.classList.add('is-revealed');
    revealObserver.unobserve(entry.target);
   });
- }, {threshold: 0, rootMargin: '0px 0px -24px 0px'});
- document.querySelectorAll('.section-head, .project, .service-layout > div:first-child, .service-list article, .about > div, .contact').forEach(element => {
-  // Keep content already on screen steady, including direct anchor visits.
-  const bounds = element.getBoundingClientRect();
-  if (bounds.top >= window.innerHeight) revealObserver.observe(element);
+ }, {threshold: 0, rootMargin: '0px 0px -40px 0px'});
+ const revealBlocks = document.querySelectorAll('.section-head, .project, .service-layout > div:first-child, .service-list article, .about > div, .contact');
+ revealBlocks.forEach(element => {
+  if (element.getBoundingClientRect().top >= window.innerHeight) {
+   element.classList.add('reveal-pending');
+   revealObserver.observe(element);
+  }
+ });
+ // Keyboard navigation should never land in transparent content.
+ document.addEventListener('focusin', event => {
+  const block = event.target.closest('.reveal-pending');
+  if (block) {
+   block.classList.add('is-revealed');
+   revealObserver.unobserve(block);
+  }
+ });
+ motionPreference.addEventListener('change', event => {
+  if (event.matches) {
+   revealObserver.disconnect();
+   revealBlocks.forEach(element => element.classList.add('is-revealed'));
+  }
  });
 }
 

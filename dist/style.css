@@ -18,15 +18,13 @@
 @media(max-width:560px){.contact-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.contact-button{gap:12px;padding:12px;font-size:13px}.contact-button>span{font-size:18px}}
 @media(max-width:360px){.contact-buttons{grid-template-columns:1fr}}
 
-/* Reveal content once without hiding it from keyboard users or no-JS visits. */
-@keyframes reveal-on-scroll {
- from {opacity:0;transform:translateY(24px)}
- to {opacity:1;transform:translateY(0)}
-}
-.scroll-reveal{animation:reveal-on-scroll .65s cubic-bezier(.22,1,.36,1) both}
-.scroll-reveal:focus-within{animation:none}
-@media(prefers-reduced-motion:reduce){.scroll-reveal{animation:none}}
-@media print{.scroll-reveal{animation:none}}
+/* Fade and rise into view once, with a small desktop card stagger. */
+.reveal-pending{opacity:0;transform:translateY(48px);transition:opacity .85s ease,transform .85s cubic-bezier(.16,1,.3,1);transition-delay:var(--reveal-delay,0ms)}
+.reveal-pending.is-revealed{opacity:1;transform:translateY(0)}
+.reveal-pending:focus-within{opacity:1;transform:none;transition:none}
+@media(min-width:801px){.project-grid .project:nth-child(2),.about>div:nth-child(2){--reveal-delay:140ms}}
+@media(prefers-reduced-motion:reduce){.reveal-pending{opacity:1;transform:none;transition:none}}
+@media print{.reveal-pending{opacity:1;transform:none;transition:none}}
 
 /* Mobile navigation; the links remain available when JavaScript is disabled. */
 .menu-toggle{display:none}

@@ -4,5 +4,16 @@
 /* Keep all four navigation links together on narrow screens. */
 .header{gap:16px}.header nav{align-items:center}.header .nav-contact{font-size:inherit}@media(max-width:560px){.header{gap:12px}.header nav{gap:14px}.header .brand{flex-shrink:0}}
 
-/* Contact links */
-.contact-bottom{align-items:start;gap:40px}.contact-bottom>p{flex:1}.contact-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;flex:1.4;min-width:0}.contact-link{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px;text-align:left;border:1px solid #a4bc72;border-radius:5px;background:transparent;min-width:0;line-height:1.5}.contact-link strong{display:block;font-size:14px;font-weight:600}.contact-link small{display:block;font-size:11px;margin-top:3px;overflow-wrap:anywhere}.contact-link>span[aria-hidden]{font-size:22px}.contact-link:is(a):hover{background:#e1f2b8;border-color:#647e36}.contact-link.pending{color:#586347;cursor:default;border-style:dashed}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:800px){.contact-links{width:100%;flex:auto}}@media(max-width:380px){.contact-links{grid-template-columns:1fr}}
+/* Compact contact buttons */
+.contact-bottom{align-items:flex-start;flex-direction:column;gap:26px}
+.contact-actions{width:100%}
+.contact-buttons{display:flex;flex-wrap:wrap;gap:12px}
+.contact-button{display:inline-flex;align-items:center;justify-content:center;gap:24px;min-height:50px;padding:13px 22px;border:1px solid #8da65d;border-radius:6px;background:#f6f5f0;color:var(--ink);font-size:14px;font-weight:600;line-height:1.5;text-decoration:none;transition:background .18s,border-color .18s,transform .18s}
+.contact-button>span{font-size:20px;line-height:1}
+.contact-button.primary{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.contact-button:hover{background:#eaf0de;border-color:var(--ink);transform:translateY(-2px)}
+.contact-button.primary:hover{background:#3f4f35}
+.contact-button:disabled{background:transparent;border-color:#9db476;color:#586347;cursor:not-allowed;transform:none}
+.contact-bottom .cv-note{margin-top:12px;font-size:11px;color:#586347}
+@media(max-width:560px){.contact-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.contact-button{gap:12px;padding:12px;font-size:13px}.contact-button>span{font-size:18px}}
+@media(max-width:360px){.contact-buttons{grid-template-columns:1fr}}

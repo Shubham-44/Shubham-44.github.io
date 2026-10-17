@@ -56,8 +56,10 @@ html{scroll-padding-top:132px}
 .feature-heading .eyebrow{font-size:10px}.feature-number{font-size:10px;letter-spacing:1.5px;color:var(--muted)}
 .flash-scene{perspective:1600px}
 .flash-card{display:block;width:100%;padding:0;background:transparent;border-radius:12px;text-align:left;transform:rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transform-style:preserve-3d;transition:transform .25s ease;touch-action:pan-y}
-.flash-rotator{display:grid;transform-style:preserve-3d;transition:transform .85s cubic-bezier(.22,.8,.25,1);position:relative}
-.flash-card[aria-pressed="true"] .flash-rotator{transform:rotateY(180deg)}
+.flash-rotator{display:grid;position:relative;transform-origin:center;transform:rotateY(0deg)}
+/* Explicit face visibility avoids mirrored layers in Safari. */
+.flash-face[aria-hidden="true"]{visibility:hidden;pointer-events:none}
+.flash-face[aria-hidden="false"]{visibility:visible}
 .flash-face{grid-area:1/1;position:relative;display:flex;flex-direction:column;min-height:510px;border-radius:12px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 20px 35px -20px #30271570}
 .flash-front{padding:36px;color:#352b20;background:#ead5b6}
 .flash-front>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% center}
@@ -70,7 +72,7 @@ html{scroll-padding-top:132px}
 .flash-title{display:block;font-family:Georgia,serif;font-size:clamp(42px,5.4vw,72px);font-weight:400;letter-spacing:-2px;line-height:1.07;margin-top:17px}
 .flash-bottom{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:auto;font-size:8px;letter-spacing:1.2px}
 .flip-cue{display:flex;align-items:center;gap:14px;font-size:12px;letter-spacing:0;padding:10px 15px;border-radius:30px;background:#fbf5e9e8;border:1px solid #67523940;white-space:nowrap}.flip-cue>span{font-size:23px;line-height:1}
-.flash-back{transform:rotateY(180deg);background:#242b25;color:#f3eee1;padding:36px}
+.flash-back{background:#242b25;color:#f3eee1;padding:36px}
 .flash-back-title{font-family:Georgia,serif;font-size:44px;letter-spacing:-1px;line-height:1.08;margin-top:21px}
 .flash-description{font-size:14px;color:#c9cdbf;max-width:540px;margin-top:17px}
 .flash-features{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:28px 0}

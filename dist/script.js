@@ -95,12 +95,48 @@ header.classList.add('nav-ready');
 const flashCard = document.querySelector('.flash-card');
 const flashFront = flashCard.querySelector('.flash-front');
 const flashBack = flashCard.querySelector('.flash-back');
-function flipFeature(flipped) {
+const flashRotator = flashCard.querySelector('.flash-rotator');
+let flipAnimation = null;
+let flipSequence = 0;
+function showCardFace(flipped) {
  flashCard.setAttribute('aria-pressed', String(flipped));
  flashCard.setAttribute('aria-label', flipped ? 'Flip ICY JEWELS card back to the design' : 'Flip ICY JEWELS card to see the project story');
  flashFront.setAttribute('aria-hidden', String(flipped));
  flashBack.setAttribute('aria-hidden', String(!flipped));
+}
+async function flipFeature(flipped) {
+ const sequence = ++flipSequence;
+ if (flipAnimation) flipAnimation.cancel();
+ flipAnimation = null;
  resetCardTilt();
+ if (motionPreference.matches || !flashRotator.animate) {
+  showCardFace(flipped);
+  return;
+ }
+ // Turn to the edge, exchange faces, then turn back. Neither face is mirrored.
+ try {
+  flipAnimation = flashRotator.animate(
+   [{transform:'rotateY(0deg)'},{transform:'rotateY(90deg)'}],
+   {duration:260,easing:'ease-in',fill:'forwards'}
+  );
+  await flipAnimation.finished;
+  if (sequence !== flipSequence) return;
+  showCardFace(flipped);
+  flipAnimation.cancel();
+  flipAnimation = flashRotator.animate(
+   [{transform:'rotateY(-90deg)'},{transform:'rotateY(0deg)'}],
+   {duration:340,easing:'ease-out',fill:'forwards'}
+  );
+  await flipAnimation.finished;
+  if (sequence !== flipSequence) return;
+  flipAnimation.cancel();
+  flipAnimation = null;
+ } catch {
+  if (sequence === flipSequence) {
+   showCardFace(flipped);
+   flipAnimation = null;
+  }
+ }
 }
 function resetCardTilt() {
  flashCard.style.setProperty('--tilt-x', '0deg');
@@ -112,7 +148,7 @@ flashCard.addEventListener('keydown', event => {
 });
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
 flashCard.addEventListener('pointermove', event => {
- if (motionPreference.matches || !finePointer.matches || event.pointerType === 'touch') return;
+ if (flipAnimation || motionPreference.matches || !finePointer.matches || event.pointerType === 'touch') return;
  const bounds = flashCard.parentElement.getBoundingClientRect();
  const x = Math.max(-.5, Math.min(.5, (event.clientX - bounds.left) / bounds.width - .5));
  const y = Math.max(-.5, Math.min(.5, (event.clientY - bounds.top) / bounds.height - .5));
@@ -121,4 +157,7 @@ flashCard.addEventListener('pointermove', event => {
 });
 flashCard.addEventListener('pointerleave', resetCardTilt);
 flashCard.addEventListener('blur', resetCardTilt);
-motionPreference.addEventListener('change', resetCardTilt);
+motionPreference.addEventListener('change', () => {
+ resetCardTilt();
+ if (motionPreference.matches) flipFeature(flashCard.getAttribute('aria-pressed') === 'true');
+});

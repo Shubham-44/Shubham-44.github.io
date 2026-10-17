@@ -21,14 +21,14 @@ const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 if ('IntersectionObserver' in window && !motionPreference.matches) {
  const revealObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-   if (!entry.isIntersecting) return;
+   if (!entry.isIntersecting || entry.intersectionRatio < 0.12) return;
    entry.target.classList.add('is-revealed');
    revealObserver.unobserve(entry.target);
   });
- }, {threshold: 0, rootMargin: '0px 0px -40px 0px'});
+ }, {threshold: 0.12, rootMargin: '0px 0px -80px 0px'});
  const revealBlocks = document.querySelectorAll('.section-head, .project, .service-layout > div:first-child, .service-list article, .about > div, .contact');
  revealBlocks.forEach(element => {
-  if (element.getBoundingClientRect().top >= window.innerHeight) {
+  if (element.getBoundingClientRect().top >= window.innerHeight * 0.85) {
    element.classList.add('reveal-pending');
    revealObserver.observe(element);
   }

@@ -19,4 +19,4 @@ Public website: https://shubham-44.github.io/
 
 Contact includes email, GitHub, and LinkedIn links. Download CV remains disabled until the CV file is supplied.
 
-The header theme toggle follows the device preference initially and remembers manual light/dark choices in browser storage. ICY JEWELS links to https://theicyjewels.com in a new tab; other projects retain their detail dialogs.
+The header theme toggle follows the device preference initially and remembers manual light/dark choices in browser storage. ICY JEWELS links to https://theicyjewels.com in a new tab; other projects show disabled Visit site buttons until their URLs are supplied.

@@ -152,3 +152,5 @@ dialog .status{background:var(--subtle)}
 .service-list article>span:last-child{flex-shrink:0;line-height:1.3}
 .contact h2>span{line-height:1;pointer-events:none}
 @media(max-width:560px){.contact h2{padding-right:36px}.contact h2>span{font-size:32px;right:0;top:5px}}
+
+.feature-details:disabled,.feature-details:disabled:hover{background:var(--ink);color:var(--paper);opacity:.6;cursor:not-allowed}

@@ -90,3 +90,35 @@ mobileViewport.addEventListener('change', () => {
 });
 menuToggle.hidden = false;
 header.classList.add('nav-ready');
+
+// The featured project flips by click, tap, Enter, or Space.
+const flashCard = document.querySelector('.flash-card');
+const flashFront = flashCard.querySelector('.flash-front');
+const flashBack = flashCard.querySelector('.flash-back');
+function flipFeature(flipped) {
+ flashCard.setAttribute('aria-pressed', String(flipped));
+ flashCard.setAttribute('aria-label', flipped ? 'Flip ICY JEWELS card back to the design' : 'Flip ICY JEWELS card to see the project story');
+ flashFront.setAttribute('aria-hidden', String(flipped));
+ flashBack.setAttribute('aria-hidden', String(!flipped));
+ resetCardTilt();
+}
+function resetCardTilt() {
+ flashCard.style.setProperty('--tilt-x', '0deg');
+ flashCard.style.setProperty('--tilt-y', '0deg');
+}
+flashCard.addEventListener('click', () => flipFeature(flashCard.getAttribute('aria-pressed') !== 'true'));
+flashCard.addEventListener('keydown', event => {
+ if (event.key === 'Escape') flipFeature(false);
+});
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+flashCard.addEventListener('pointermove', event => {
+ if (motionPreference.matches || !finePointer.matches || event.pointerType === 'touch') return;
+ const bounds = flashCard.parentElement.getBoundingClientRect();
+ const x = Math.max(-.5, Math.min(.5, (event.clientX - bounds.left) / bounds.width - .5));
+ const y = Math.max(-.5, Math.min(.5, (event.clientY - bounds.top) / bounds.height - .5));
+ flashCard.style.setProperty('--tilt-x', `${-y * 9}deg`);
+ flashCard.style.setProperty('--tilt-y', `${x * 9}deg`);
+});
+flashCard.addEventListener('pointerleave', resetCardTilt);
+flashCard.addEventListener('blur', resetCardTilt);
+motionPreference.addEventListener('change', resetCardTilt);

@@ -1,1 +1,10 @@
-{"name":"shubham-portfolio","private":true,"version":"1.0.0","scripts":{"dev":"python3 -m http.server 5173 --directory dist","start":"python3 -m http.server 5173 --directory dist","check":"node --check dist/script.js"}}
+{
+  "name": "shubham-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "python3 -m http.server 5173 --directory dist",
+    "start": "python3 -m http.server 5173 --directory dist",
+    "check": "node --check dist/script.js && node --check dist/theme.js"
+  }
+}

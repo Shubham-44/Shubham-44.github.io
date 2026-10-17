@@ -9,7 +9,7 @@ Run `npm run dev` and open http://localhost:5173. Run `npm run check` to check J
 - `dist/script.js`: project details and accessible native dialog interaction.
 - `dist/assets/`: project imagery copied from the local PETER BOX, PU LINE SOLUTION, and ICY JEWELS projects.
 
-Contact is intentionally marked “coming soon” until an email address is supplied. Replace that label with a mailto link when ready. Project summaries accurately distinguish frontend previews from live commerce. Project card compositions are adapted portfolio visuals, not screenshots.
+The contact section links to shubhamdarkad17@gmail.com using a mailto link. Project summaries accurately distinguish frontend previews from live commerce. Project card compositions are adapted portfolio visuals, not screenshots.
 
 ## GitHub Pages
 

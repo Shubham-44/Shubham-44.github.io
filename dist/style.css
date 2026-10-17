@@ -145,3 +145,10 @@ dialog .status{background:var(--subtle)}
 .skip{color:#252e24}
 .flash-face{color-scheme:light}
 @media(max-width:700px){.header .brand{margin-right:auto}.header nav{margin-left:0}.theme-toggle{order:2;margin-left:0}.header .menu-toggle{order:3}}
+
+/* Vector arrows avoid the coloured emoji glyphs used by mobile Safari. */
+.icon{display:inline-block;width:1em;height:1em;flex-shrink:0;vertical-align:-.15em;overflow:visible}
+.contact-button .icon,.feature-details .icon,.button .icon{display:block}
+.service-list article>span:last-child{flex-shrink:0;line-height:1.3}
+.contact h2>span{line-height:1;pointer-events:none}
+@media(max-width:560px){.contact h2{padding-right:36px}.contact h2>span{font-size:32px;right:0;top:5px}}

@@ -16,3 +16,5 @@ The contact section links to shubhamdarkad17@gmail.com using a mailto link. Proj
 The GitHub Actions workflow in `.github/workflows/pages.yml` publishes `dist/` when changes are pushed to `main`. In the repository's **Settings → Pages**, the source is **GitHub Actions**.
 
 Public website: https://shubham-44.github.io/
+
+Contact includes email, GitHub, and LinkedIn links. Download CV remains disabled until the CV file is supplied.

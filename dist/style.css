@@ -17,3 +17,13 @@
 .contact-bottom .cv-note{margin-top:12px;font-size:11px;color:#586347}
 @media(max-width:560px){.contact-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.contact-button{gap:12px;padding:12px;font-size:13px}.contact-button>span{font-size:18px}}
 @media(max-width:360px){.contact-buttons{grid-template-columns:1fr}}
+
+/* Reveal content once without hiding it from keyboard users or no-JS visits. */
+@keyframes reveal-on-scroll {
+ from {opacity:0;transform:translateY(24px)}
+ to {opacity:1;transform:translateY(0)}
+}
+.scroll-reveal{animation:reveal-on-scroll .65s cubic-bezier(.22,1,.36,1) both}
+.scroll-reveal:focus-within{animation:none}
+@media(prefers-reduced-motion:reduce){.scroll-reveal{animation:none}}
+@media print{.scroll-reveal{animation:none}}

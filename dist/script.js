@@ -91,8 +91,9 @@ mobileViewport.addEventListener('change', () => {
 menuToggle.hidden = false;
 header.classList.add('nav-ready');
 
-// The featured project flips by click, tap, Enter, or Space.
-const flashCard = document.querySelector('.flash-card');
+// Each project has independent flip state and keyboard/touch controls.
+document.querySelectorAll('.flash-card').forEach(flashCard => {
+const cardName = flashCard.dataset.cardName;
 const flashFront = flashCard.querySelector('.flash-front');
 const flashBack = flashCard.querySelector('.flash-back');
 const flashRotator = flashCard.querySelector('.flash-rotator');
@@ -100,7 +101,7 @@ let flipAnimation = null;
 let flipSequence = 0;
 function showCardFace(flipped) {
  flashCard.setAttribute('aria-pressed', String(flipped));
- flashCard.setAttribute('aria-label', flipped ? 'Flip ICY JEWELS card back to the design' : 'Flip ICY JEWELS card to see the project story');
+ flashCard.setAttribute('aria-label', flipped ? `Flip ${cardName} card back to the design` : `Flip ${cardName} card to see the project story`);
  flashFront.setAttribute('aria-hidden', String(flipped));
  flashBack.setAttribute('aria-hidden', String(!flipped));
 }
@@ -160,4 +161,6 @@ flashCard.addEventListener('blur', resetCardTilt);
 motionPreference.addEventListener('change', () => {
  resetCardTilt();
  if (motionPreference.matches) flipFeature(flashCard.getAttribute('aria-pressed') === 'true');
+});
+
 });
